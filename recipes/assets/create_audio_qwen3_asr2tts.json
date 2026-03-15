@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "adr": "docs/adr/create_audio_qwen3_asr2tts.md",
+    "adr": "docs/concepts/create_audio_qwen3_asr2tts.md",
     "strategy": "Qwen3-ASR + Qwen3-TTS"
   },
   "id": "qwen3-asr-tts-assets",

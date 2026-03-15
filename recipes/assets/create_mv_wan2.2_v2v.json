@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "adr": "docs/adr/create_video_wan2.2_i2v.md",
+    "adr": "docs/concepts/create_video_wan2.2_i2v.md",
     "strategy": "Wan 2.2 + InfiniteTalk (Kijai FP8 Optimized)"
   },
   "id": "wan-mv-studio-assets",

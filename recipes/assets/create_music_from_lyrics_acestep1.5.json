@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "adr": "docs/adr/create_music_from_lyrics_acestep1.5.md",
+    "adr": "docs/concepts/create_music_from_lyrics_acestep1.5.md",
     "strategy": "ACE-Step 1.5 Turbo + Qwen Text Encoders"
   },
   "id": "ace-step-1.5-assets",

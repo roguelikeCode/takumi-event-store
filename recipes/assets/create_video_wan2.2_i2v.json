@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "adr": "docs/adr/create_video_wan2.2_i2v.md",
+    "adr": "docs/concepts/create_video_wan2.2_i2v.md",
     "strategy": "Wan 2.2 I2V Quantum (GGUF) + LightX2V Distill LoRA"
   },
   "id": "wan-video-2.2-assets",
