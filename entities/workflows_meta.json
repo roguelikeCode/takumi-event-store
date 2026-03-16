@@ -4,7 +4,7 @@
     "creator": "Takumi OSS",
     "description": "Generate audio/lyrics using ACE-Step 1.5 & LyricForge.",
     "tags": ["audio", "ace-step-1.5", "lyric-forge", "trend"],
-    "path": "/app/external/takumi-event-store/library/workflows/create_music_from_lyrics_acestep1.5.json",
+    "path": "/app/external/takumi-registry/library/workflows/create_music_from_lyrics_acestep1.5.json",
     "recommended_checkpoint": null,
     "requires_asset": "takumi-use-case-ace-step-1.5-lyric-001",
     "mapping": {}
@@ -14,7 +14,7 @@
     "creator": "Takumi OSS",
     "description": "Generate cinematic video from image using Wan 2.2 GGUF & LightX2V.",
     "tags": ["video", "wan2.2", "i2v", "cinema"],
-    "path": "/app/external/takumi-event-store/library/workflows/create_video_wan2.2_i2v.json",
+    "path": "/app/external/takumi-registry/library/workflows/create_video_wan2.2_i2v.json",
     "recommended_checkpoint": "Wan2.2-TI2V-5B-Q4_K_M.gguf",
     "requires_asset": "takumi-use-case-wan-video-gguf-001",
     "mapping": {
@@ -26,7 +26,7 @@
     "creator": "Takumi OSS",
     "description": "Create high-quality music videos using WanVideo 2.1/2.2 for V2V and InfiniteTalk for lip-sync synchronization.",
     "tags": ["video", "wan-video", "infinitetalk", "v2v", "lip-sync", "mv"],
-    "path": "/app/external/takumi-event-store/library/workflows/create_mv_wan2.2_v2v.json",
+    "path": "/app/external/takumi-registry/library/workflows/create_mv_wan2.2_v2v.json",
     "recommended_checkpoint": null,
     "requires_asset": "takumi-use-case-wan-video-infinitetalk-001",
     "mapping": {}
@@ -36,7 +36,7 @@
     "creator": "Takumi OSS",
     "description": "Generate high-fidelity voice cloning using Alibaba's Qwen3-TTS.",
     "tags": ["audio", "tts", "qwen3", "voice-cloning", "trend"],
-    "path": "/app/external/takumi-event-store/library/workflows/create_audio_qwen3_asr2tts.json",
+    "path": "/app/external/takumi-registry/library/workflows/create_audio_qwen3_asr2tts.json",
     "recommended_checkpoint": "Qwen3-TTS-12Hz-1.7B-Base",
     "requires_asset": "takumi-use-case-audio-qwen3-tts-001",
     "mapping": {}
