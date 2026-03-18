@@ -20,7 +20,7 @@ jobs:
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/workspace \
-            aquasecurity/trivy:latest fs \
+            aquasec/trivy:0.69.3 fs \
             --format table \
             --exit-code 1 \
             --ignore-unfixed \
