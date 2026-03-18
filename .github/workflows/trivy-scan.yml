@@ -1,0 +1,29 @@
+name: Security Scan (Trivy)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'
+
+jobs:
+  scan-fs:
+    name: Trivy FS Scan (Containerized)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner via Docker
+        run: |
+          docker run --rm \
+            -v ${{ github.workspace }}:/workspace \
+            aquasecurity/trivy:latest fs \
+            --format table \
+            --exit-code 1 \
+            --ignore-unfixed \
+            --vuln-type os,library \
+            --severity CRITICAL,HIGH \
+            /workspace
