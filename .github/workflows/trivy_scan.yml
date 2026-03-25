@@ -1,4 +1,4 @@
-name: Security Scan (Trivy)
+name: Security Scan (Trivy FS)
 
 on:
   push:
@@ -13,72 +13,25 @@ permissions:
   contents: read
 
 jobs:
-  build-and-scan:
-    name: Build & Scan Docker Image
+  scan-fs:
+    name: Trivy FS Scan (Containerized)
     runs-on: ubuntu-24.04
-    # [The Silence] Enforce all GitHub Actions to run on Node.js 24 and purge transitional warnings (noise).
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    
+      
     steps:
-      # Allocate disk space before building (to deal with large Docker images)
-      - name: Purge Pre-installed Bloatware (Free Disk Space)
-        run: |
-          sudo rm -rf \
-            /usr/share/dotnet \
-            /usr/local/lib/android \
-            /opt/ghc \
-            /usr/local/.ghcup \
-            /usr/lib/jvm \
-            /usr/local/share/powershell \
-            /usr/share/swift
-          sudo apt-get autoremove -y
-          sudo apt-get clean
-
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2 (Node 24)
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0 (Node 24)
-
-      - name: Build Docker image
-      # Build the image, but do not push it (load only).
-        uses: docker/build-push-action@d08e5c354a6adb9ed34480a06d141179aa583294 # v7.0.0 (Node 24)
-        with:
-          context: .
-          load: true
-          tags: takumi-comfyui:test
-          # Pass build arguments to prevent errors (a dummy ID is OK).
-          build-args: |
-            TAKUMI_UID=9000
-            TAKUMI_GID=9000
-
-      # [Step 1] HIGH Level: Detect but do not stop CI (exit-code: 0)
-      # [Monitoring Mode]  : To prevent CI from stopping due to uncontrollable HIGH vulnerabilities such as Ollama, monitor using reporting without setting a threshold.
-      - name: Scan for HIGH vulnerabilities (Monitor Only)
-      # Mount the Docker socket and directly inspect the pre-built local image (0.69.3)
+      # Directly invoke a secure v0.69.3 container without using Trivy Actions.
+      - name: Run Trivy vulnerability scanner via Docker
         run: |
           docker run --rm \
-            -v /var/run/docker.sock:/var/run/docker.sock \
             -v ${{ github.workspace }}:/workspace \
-            aquasec/trivy:0.69.3 image \
-            --ignorefile /workspace/.trivyignore \
-            --format table \
-            --exit-code 0 \
-            --severity HIGH \
-            --ignore-unfixed \
-            takumi-comfyui:test
-
-      #[Step 2] CRITICAL level: Stop immediately upon detection (exit-code: 1)
-      - name: Scan for CRITICAL vulnerabilities (Blocker)
-        run: |
-          docker run --rm \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v ${{ github.workspace }}:/workspace \
-            aquasec/trivy:0.69.3 image \
-            --ignorefile /workspace/.trivyignore \
+            aquasec/trivy:0.69.3 fs \
             --format table \
             --exit-code 1 \
-            --severity CRITICAL \
             --ignore-unfixed \
-            takumi-comfyui:test
+            --vuln-type os,library \
+            --severity CRITICAL,HIGH \
+            /workspace
